@@ -1,6 +1,6 @@
-require("theprimeagen.set")
-require("theprimeagen.remap")
-require("theprimeagen.lazy_init")
+require("lasovar.set")
+require("lasovar.remap")
+require("lasovar.lazy_init")
 
 -- DO.not
 -- DO NOT INCLUDE THIS
@@ -14,7 +14,7 @@ require("theprimeagen.lazy_init")
 -- DO.not
 
 local augroup = vim.api.nvim_create_augroup
-local ThePrimeagenGroup = augroup('ThePrimeagen', {})
+local Lasovar = augroup('Lasovar', {})
 
 local autocmd = vim.api.nvim_create_autocmd
 local yank_group = augroup('HighlightYank', {})
@@ -43,13 +43,13 @@ autocmd('TextYankPost', {
 })
 
 autocmd({"BufWritePre"}, {
-    group = ThePrimeagenGroup,
+    group = Lasovar,
     pattern = "*",
     command = [[%s/\s\+$//e]],
 })
 
 autocmd('BufEnter', {
-    group = ThePrimeagenGroup,
+    group = Lasovar,
     callback = function()
         if vim.bo.filetype == "zig" then
             vim.cmd.colorscheme("tokyonight-night")
@@ -61,7 +61,7 @@ autocmd('BufEnter', {
 
 
 autocmd('LspAttach', {
-    group = ThePrimeagenGroup,
+    group = Lasovar,
     callback = function(e)
         local opts = { buffer = e.buf }
         vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
